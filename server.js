@@ -6,13 +6,13 @@ var path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //make way for some custom css, js and images
-app.use(express.static(__dirname + '/public/assets/css'));
-app.use(express.static(__dirname + '/public/assets/js'));
-app.use(express.static(__dirname + '/public/assets/img'));
-app.use(express.static(__dirname + '/public/assets/vendor'));
+app.use(express.static(path.join(__dirname, 'public/assets/css')));
+app.use(express.static(path.join(__dirname, 'public/assets/js')));
+app.use(express.static(path.join(__dirname, 'public/assets/img')));
+app.use(express.static(path.join(__dirname, 'public/assets/vendor')));
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -50,7 +50,7 @@ function sendMail(req, res) {
 
 // render home page
 function homePage(req, res) {
-    var fs = require('fs'), filename = "gold_rate.txt";
+    var fs = require('fs'), filename = __dirname + "/gold_rate.txt";
     
     var data = fs.readFileSync(filename, 'utf8');
     console.log(data);
@@ -61,7 +61,7 @@ function homePage(req, res) {
 
     console.log(ttkgold,tokgold)
 
-    var filename = "silver_rate.txt";
+    var filename = __dirname + "/silver_rate.txt";
     
     var silver = fs.readFileSync(filename, 'utf8');    
     
@@ -77,7 +77,7 @@ function estimator(req, res) {
     console.log(username, password);
 
     if (username == "kkgoldmart@admin.com" && password == "vibin"){
-        var fs = require('fs'), filename = "gold_rate.txt";
+        var fs = require('fs'), filename = __dirname + "/gold_rate.txt";
     
         var data = fs.readFileSync(filename, 'utf8');
         console.log(data)
@@ -88,7 +88,7 @@ function estimator(req, res) {
     
         console.log(ttkgold,tokgold)
     
-        var filename = "silver_rate.txt";
+        var filename = __dirname + "/silver_rate.txt";
         
         var silver = fs.readFileSync(filename, 'utf8');    
     
@@ -117,7 +117,7 @@ function changeRate(req,res) {
     const fs = require('fs');
 
     // write to new_file
-    fs.writeFile('gold_rate.txt', gRate, (err) => {
+    fs.writeFile(__dirname + '/gold_rate.txt', gRate, (err) => {
         // throws an error, you could also catch it here
         if (err) throw err;
 
@@ -126,7 +126,7 @@ function changeRate(req,res) {
     });
 
     // write to new_file
-    fs.writeFile('silver_rate.txt', sRate, (err) => {
+    fs.writeFile(__dirname + '/silver_rate.txt', sRate, (err) => {
         // throws an error, you could also catch it here
         if (err) throw err;
 
